@@ -111,8 +111,7 @@ const Index = () => {
 
     const logout = () => {
         clear()
-        history.push('/')
-        history.replace("/Login")
+        history.push('/login')
     }
 
     useEffect(() => {

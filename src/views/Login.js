@@ -27,7 +27,7 @@ function Login() {
             const res = await login(loginForm)
             if (res.token) {
                 save(res.token)
-                history.push("/")
+                history.push('/home')
             }
         } catch (e) {
             const err = e.message.split('|')

@@ -13,37 +13,26 @@ function Starter() {
     const [keyword, setKeyword] = useState()
     const [errorVisible, setErrorVisible] = useState(false)
     const [errorMsg, setErrorMsg] = useState(null)
-    const {session, clear} = useSession("docs-demo-token")
+    const {clear} = useSession("docs-demo-token")
 
-    try {
-        jwt_decode(session)
-    } catch (e) {
-        setErrorMsg(e.message)
-        clear()
-        history.push('/')
-        history.replace("/Login")
-    }
 
     const logout = () => {
         clear()
-        history.push('/')
-        history.replace("/Login")
+        history.push('/login')
     }
 
     useEffect(() => {
         async function fetchData() {
-            if (session) {
-                try {
-                    const res = await getDocList({keyword})
-                    setFileList(res)
-                } catch (e) {
-                    setErrorMsg(e.response.data.msg)
-                }
+            try {
+                const res = await getDocList({keyword})
+                setFileList(res)
+            } catch (e) {
+                setErrorMsg(e.response.data.msg)
             }
         }
 
         fetchData()
-    }, [keyword, session])
+    }, [keyword])
 
     const getKeyword = (value) => {
         setKeyword(value)

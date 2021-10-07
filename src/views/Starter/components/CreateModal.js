@@ -12,7 +12,7 @@ function CreateModal({modalVisible, setModalVisible}) {
     const createDocument = async () => {
         if (!fileName) return
         const res = await createDoc({name: fileName})
-        history.push('/');
+        history.push('/')
         history.replace(`/doc/${res.uuid}`)
         setModalVisible(false)
         setFileName('')

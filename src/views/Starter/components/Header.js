@@ -15,7 +15,6 @@ const Header = ({children, onSearchKeyword, logout}) => {
     } catch (e) {
         clear()
         history.push('/')
-        history.replace("/Login")
     }
 
     const formatName = (value) => {
