@@ -143,7 +143,7 @@ function Login() {
             <div className="w-3/4 p-10 space-y-5 flex flex-col">
                 {alert.on === 'loginForm' ?
                     <Alert color={alert.color}>
-                        <h1>{alert.msg}</h1>
+                        <h1 className="font-bold">{alert.msg}</h1>
                         <ul>{alert.data.map(item => <li key={item}>{item}</li>)}</ul>
                     </Alert> : null}
                 <Input placeholder="Username" size="lg" onChange={(e) => {
@@ -155,6 +155,10 @@ function Login() {
                 <Button variant="contained" onClick={() => onLogin()}>Login</Button>
                 <Button color="info"
                         onClick={() => setModalVisible(true)}>Sign Up</Button>
+                <Alert color="warning">
+                    <h1 className="font-bold">Heroku需要暖機</h1>
+                    <ul>若半小時沒連線，點選login後，需等待Heroku一分鐘後開機再試。</ul>
+                </Alert>
             </div>
         </div>
     </div>
