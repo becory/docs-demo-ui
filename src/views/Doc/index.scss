@@ -1,0 +1,116 @@
+@tailwind components;
+
+@layer components {
+  *, *::before, *::after {
+    @apply box-border;
+  }
+
+  body {
+    @apply bg-gray-50 m-0;
+  }
+
+  .header {
+    @apply flex justify-between items-center p-3 bg-white shadow-md;
+    .title-menu {
+      @apply flex-grow px-2 overflow-hidden whitespace-nowrap;
+      .menu-information {
+        @apply flex items-center text-sm space-x-4;
+        .menu {
+          @apply flex items-center text-sm ml-1 text-gray-600;
+          .item {
+            @apply cursor-pointer ease-out static select-none;
+            span {
+              @apply w-full h-full block select-none px-2 py-1 rounded-lg hover:bg-blue-100 transition duration-200;
+            }
+
+            &.disable {
+              span {
+                @apply hover:bg-gray-100 text-gray-300;
+              }
+            }
+            .submenu {
+              @apply absolute z-20 bg-white border border-solid border-gray-200 my-2 space-y-1 rounded-none divide-solid divide-y divide-gray-200;
+              min-width: 5%;
+
+              .sub-item {
+                @apply w-full p-2 px-4 hover:bg-blue-100 select-none;
+              }
+            }
+          }
+        }
+
+        .info {
+          @apply text-gray-500 underline;
+        }
+      }
+    }
+
+    .user {
+      @apply flex items-center;
+    }
+
+    .hide-span {
+      @apply absolute opacity-0 whitespace-pre;
+      z-index: -100;
+    }
+  }
+
+
+  .wrapper {
+    @apply static;
+
+    .cursor {
+      @apply absolute;
+      z-index: 5;
+    }
+
+    .editor {
+      .ql-editor {
+        @apply bg-white shadow-2xl ;
+        width: 8.5in;
+        min-height: 11in;
+        padding: 1in;
+        margin: 1rem;
+      }
+
+      .ql-container.ql-snow {
+        @apply flex border-none justify-center;
+      }
+
+      .ql-toolbar.ql-snow {
+        @apply flex sticky pl-8 top-0 z-10 shadow-md border-none bg-gray-200;
+      }
+    }
+
+  }
+}
+
+@page {
+  margin: 1in;
+}
+
+@media print {
+  body {
+    background: none;
+  }
+  .header {
+    display: none;
+  }
+  .wrapper {
+    .editor {
+      .ql-editor {
+        width: 6.5in;
+        height: 9in;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+        align-self: flex-start;
+      }
+
+      .ql-toolbar.ql-snow {
+        display: none;
+      }
+    }
+  }
+
+}
