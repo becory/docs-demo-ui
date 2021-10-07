@@ -43,7 +43,7 @@ function Starter() {
         }
 
         fetchData()
-    }, [keyword, clear, history, session])
+    }, [keyword, session])
 
     const getKeyword = (value) => {
         setKeyword(value)

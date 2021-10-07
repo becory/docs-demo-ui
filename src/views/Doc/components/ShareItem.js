@@ -16,6 +16,7 @@ const User = ({editable, item, onChangeValue}) => {
     }
 
     useEffect(() => {
+        // let active = true;
         const getUser = async () => {
 
             if (!loading) {
@@ -29,6 +30,9 @@ const User = ({editable, item, onChangeValue}) => {
         }
 
         getUser()
+        // return () => {
+        //     active = false;
+        // };
     }, [loading, keyword]);
 
     useEffect(() => {
@@ -123,7 +127,7 @@ function ShareItem({item, index, onChangeItem, onRemoveNullItem, onRemoveItem}) 
 
     useEffect(() => {
         onChangeItem(index, itemChange)
-    }, [index, itemChange, onChangeItem])
+    }, [index, itemChange])
 
     return (
         <div className="flex items-center p-4 rounded-lg hover:bg-gray-100 text-gray-700 text-sm cursor-pointer"

@@ -1,6 +1,6 @@
 import 'tailwindcss/tailwind.css'
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Switch,
     Route,
     Redirect

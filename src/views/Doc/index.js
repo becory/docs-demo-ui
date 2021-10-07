@@ -219,7 +219,7 @@ const Index = () => {
             setSocket(s)
             const handler = (error) => {
                 console.log(error)
-                // if (error.status === '404') return history.push('/404')
+                if (error.status === '404') return history.push('/404')
             }
             s.on('error', handler)
             await getDocInfo()
