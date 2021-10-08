@@ -27,6 +27,7 @@ function Login() {
             const res = await login(loginForm)
             if (res.token) {
                 save(res.token)
+                history.go(0)
                 history.push('/home')
             }
         } catch (e) {

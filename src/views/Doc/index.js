@@ -111,6 +111,7 @@ const Index = () => {
 
     const logout = () => {
         clear()
+        history.go(0)
         history.push('/login')
     }
 

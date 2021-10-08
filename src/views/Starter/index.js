@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import {useSession} from "react-use-session";
 import {getDocList} from "../../api/doc";
 import {useHistory} from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import Error from "../../components/Error";
 
 function Starter() {
@@ -18,6 +17,7 @@ function Starter() {
 
     const logout = () => {
         clear()
+        history.go(0)
         history.push('/login')
     }
 

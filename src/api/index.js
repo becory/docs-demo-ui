@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// export const baseURL = 'http://localhost:3001'
-export const baseURL = 'https://mydocs-demo.herokuapp.com'
+export const baseURL = 'http://localhost:3001'
+// export const baseURL = 'https://mydocs-demo.herokuapp.com'
 const service = axios.create({
     baseURL
     // baseURL: process.env.API

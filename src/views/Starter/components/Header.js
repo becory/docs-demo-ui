@@ -14,7 +14,8 @@ const Header = ({children, onSearchKeyword, logout}) => {
         if (session) login_user = jwt_decode(session)
     } catch (e) {
         clear()
-        history.push('/')
+        history.go(0)
+        history.push('/login')
     }
 
     const formatName = (value) => {
