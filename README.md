@@ -1,7 +1,7 @@
 # docs-demo-UI
 
-UI: [Github](https://github.com/becory/docs-demo-ui/)
-API: [Github](https://github.com/becory/docs-demo-express/)
+- UI: [Github](https://github.com/becory/docs-demo-ui/)
+- API: [Github](https://github.com/becory/docs-demo-express/)
 
 ## Technical
 
