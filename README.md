@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# docs-demo-UI
+UI: [Github](https://github.com/becory/docs-demo-ui/)
+API: [Github](https://github.com/becory/docs-demo-express/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Technical
 
-## Available Scripts
+### UI
+1. React Hook
+2. React Router Dom
+3. Tailwinds (SCSS)
+4. QuillJS (Editor)
 
-In the project directory, you can run:
+### API
+1. Express
+2. Sequelize
+3. PostgresSQL
+4. Socket.io
 
-### `npm start`
+User story
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```gherkin=
+Feature: Users can collaborate each other.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  Scenario: User create or open document.
+    When the user create or open document.
+    Then Those user who opened the document will track and sync the cursor, selection and document change.
 
-### `npm test`
+  Scenario: The creator can set the document who can read or edit it.
+    Given The creator can set a authorization list for a document.
+    When The User on the authorization list.
+    Then He/She can be edit or read only the document.
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+User Flow
+---
+[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVEJcbiAgc3ViZ3JhcGggXCJEb2N1bWVudFwiXG4gIE9wZW5bT3BlbiBEb2N1bWVudF1cbiAgZW5kXG5cbiAgc3ViZ3JhcGggXCJEb2N1bWVudCBMaXN0IFBhZ2VcIlxuICBEb2NMaXN0Rmxvd1tEb2N1bWVudCBMaXN0XVxuICBEb2NMaXN0RmxvdyAtLT4gQ3JlYXRlW0NyZWF0ZSBEb2N1bWVudF1cbiAgRG9jTGlzdEZsb3cgLS0-IFF1ZXJ5W1F1ZXJ5IExvZ2luIFVzZXIncyBEb2N1bWVudF1cbiAgQ3JlYXRlIC0tPiBPcGVuXG4gIFF1ZXJ5IC0tPiBPcGVuXG4gIGVuZFxuXG4gIHN1YmdyYXBoIFwiTG9naW4gUGFnZVwiXG4gIFN0YXJ0KHN0YXJ0KVxuICBTdGFydCAtLT4gTG9naW5cbiAgU3RhcnQgLS0-IFJlZ2lzdGVyXG4gIFJlZ2lzdGVyIC0tPiByZWdpc3RlckZvcm1bL1JlZ2lzdGVyIEZvcm0vXVxuICByZWdpc3RlckZvcm0gLS0-IHJlZ2lzdGVyT0t7SXMgc3VjY2Vzcz99XG4gIHJlZ2lzdGVyT0sgLS0gWWVzIC0tPiBMb2dpblxuICByZWdpc3Rlck9LIC0tIE5vIC0tPiBSZWdpc3RlclxuICBMb2dpbiAtLT4gbG9naW5Gb3JtWy9maWxsIFVzZXJuYW1lLCBQYXNzd29yZC9dXG4gIGxvZ2luRm9ybSAtLT4gbG9naW57aXMgTG9naW4_fVxuICBsb2dpbiAtLSBZZXMgLS0-IERvY0xpc3RGbG93W0RvY3VtZW50IExpc3RdXG4gIGxvZ2luIC0tIE5vIC0tPiBTdGFydFxuZW5kIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ)](https://mermaid-js.github.io/mermaid-live-editor/edit#eyJjb2RlIjoiZ3JhcGggVEJcbiAgc3ViZ3JhcGggXCJEb2N1bWVudFwiXG4gIE9wZW5bT3BlbiBEb2N1bWVudF1cbiAgZW5kXG5cbiAgc3ViZ3JhcGggXCJEb2N1bWVudCBMaXN0IFBhZ2VcIlxuICBEb2NMaXN0Rmxvd1tEb2N1bWVudCBMaXN0XVxuICBEb2NMaXN0RmxvdyAtLT4gQ3JlYXRlW0NyZWF0ZSBEb2N1bWVudF1cbiAgRG9jTGlzdEZsb3cgLS0-IFF1ZXJ5W1F1ZXJ5IExvZ2luIFVzZXIncyBEb2N1bWVudF1cbiAgQ3JlYXRlIC0tPiBPcGVuXG4gIFF1ZXJ5IC0tPiBPcGVuXG4gIGVuZFxuXG4gIHN1YmdyYXBoIFwiTG9naW4gUGFnZVwiXG4gIFN0YXJ0KHN0YXJ0KVxuICBTdGFydCAtLT4gTG9naW5cbiAgU3RhcnQgLS0-IFJlZ2lzdGVyXG4gIFJlZ2lzdGVyIC0tPiByZWdpc3RlckZvcm1bL1JlZ2lzdGVyIEZvcm0vXVxuICByZWdpc3RlckZvcm0gLS0-IHJlZ2lzdGVyT0t7SXMgc3VjY2Vzcz99XG4gIHJlZ2lzdGVyT0sgLS0gWWVzIC0tPiBMb2dpblxuICByZWdpc3Rlck9LIC0tIE5vIC0tPiBSZWdpc3RlclxuICBMb2dpbiAtLT4gbG9naW5Gb3JtWy9maWxsIFVzZXJuYW1lLCBQYXNzd29yZC9dXG4gIGxvZ2luRm9ybSAtLT4gbG9naW57aXMgTG9naW4_fVxuICBsb2dpbiAtLSBZZXMgLS0-IERvY0xpc3RGbG93W0RvY3VtZW50IExpc3RdXG4gIGxvZ2luIC0tIE5vIC0tPiBTdGFydFxuZW5kIiwibWVybWFpZCI6IntcbiAgXCJ0aGVtZVwiOiBcImRlZmF1bHRcIlxufSIsInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0)
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Data Schema
+![Data schema](https://i.imgur.com/u4iPBWB.png)
