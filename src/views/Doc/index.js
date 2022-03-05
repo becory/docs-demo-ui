@@ -37,7 +37,6 @@ const Index = () => {
     if (Quill && !quill) {
         Quill.register('modules/cursors', QuillCursors);
     }
-    const cursorRef = useRef()
 
     let login_user
     if (session) {
@@ -211,7 +210,7 @@ const Index = () => {
     }, [docId, history, session])
 
 
-    const mouse = useMouse(cursorRef, {
+    const mouse = useMouse(quillRef, {
         enterDelay: 100,
         leaveDelay: 100,
     })
