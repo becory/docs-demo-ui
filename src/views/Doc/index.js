@@ -229,6 +229,30 @@ const Index = () => {
                 onChangeTitle={onChangeTitle}
                 quill={quill}
                 logout={logout}/>
+        <div id="toolbar">
+            <select className="ql-header">
+                <option selected />
+                <option value="1" />
+                <option value="2" />
+                <option value="4" />
+                <option value="5" />
+                <option value="6" />
+            </select>
+            <select className="ql-font" />
+            <button className="ql-list" value="ordered" />
+            <button className="ql-list" value="bullet" />
+            <button className="ql-color" />
+            <button className="ql-background" />
+            <button className="ql-bold" />
+            <button className="ql-italic" />
+            <button className="ql-underline" />
+            <button className="ql-script" value="sub" />
+            <button className="ql-script" value="super" />
+            <select className="ql-align" />
+            <button className="ql-image" />
+            <button className="ql-blockquote" />
+            <button className="ql-clean" />
+        </div>
         <div className="wrapper">
             {userCursor.filter(item => item.id !== login_user.id).map((item) =>
                 <div className="cursor" style={
@@ -247,30 +271,6 @@ const Index = () => {
                         padding: '3px 5px'
                     }}>{item.name}</div>
                 </div>)}
-            <div id="toolbar">
-                <select className="ql-header">
-                    <option selected />
-                    <option value="1" />
-                    <option value="2" />
-                    <option value="4" />
-                    <option value="5" />
-                    <option value="6" />
-                </select>
-                <select className="ql-font" />
-                <button className="ql-list" value="ordered" />
-                <button className="ql-list" value="bullet" />
-                <button className="ql-color" />
-                <button className="ql-background" />
-                <button className="ql-bold" />
-                <button className="ql-italic" />
-                <button className="ql-underline" />
-                <button className="ql-script" value="sub" />
-                <button className="ql-script" value="super" />
-                <select className="ql-align" />
-                <button className="ql-image" />
-                <button className="ql-blockquote" />
-                <button className="ql-clean" />
-            </div>
             <div className="editor" ref={quillRef}/>
         </div>
     </div>
