@@ -1,6 +1,6 @@
-import {useCallback, useEffect, useState, useRef} from "react";
+import {useEffect, useState, useRef} from "react";
+import {useQuill} from "react-quilljs";
 import {useParams, useHistory} from "react-router-dom";
-import Quill from "quill"
 import QuillCursors from 'quill-cursors';
 import "quill/dist/quill.snow.css"
 import "./index.scss"
@@ -38,12 +38,13 @@ const Index = () => {
     const [userCursor, setUserCursor] = useState([])
     const [userSelection, setUserSelection] = useState([])
     const [socket, setSocket] = useState()
-    const [quill, setQuill] = useState()
     const [modalVisible, setModalVisible] = useState(false)
     const [editable, setEditable] = useState(false)
     const [lastUpdated, setLastUpdated] = useState({updated: '', User: {name: ''}})
     const [errorVisible, setErrorVisible] = useState(false)
     const [errorMsg, setErrorMsg] = useState(null)
+    const { quill, quillRef, Quill } = useQuill();
+
     const cursorRef = useRef()
 
     let login_user
@@ -56,6 +57,14 @@ const Index = () => {
     } else {
         login_user = save({id: uuidV4(), name: 'Guest'})
     }
+
+    useEffect(()=>{
+        if(quill){
+            Quill.register('modules/cursors', QuillCursors);
+            quill.disable()
+            quill.setText('Loading...')
+        }
+    }, [quill])
 
     useEffect(() => {
         if (errorMsg !== null) {
@@ -211,20 +220,6 @@ const Index = () => {
         }
     }, [docId, history, session])
 
-    const wrapperRef = useCallback((wrapper) => {
-        if (wrapper === null) return
-
-        wrapper.innerHTML = ""
-        const editor = document.createElement("div")
-        wrapper.append(editor)
-        Quill.register('modules/cursors', QuillCursors);
-        const q = new Quill(editor, {
-            theme: "snow", modules: {toolbar: TOOLBAR_OPTIONS, cursors: true},
-        })
-        q.disable()
-        q.setText('Loading...')
-        setQuill(q)
-    }, [])
 
     const mouse = useMouse(cursorRef, {
         enterDelay: 100,
@@ -263,7 +258,7 @@ const Index = () => {
                         padding: '3px 5px'
                     }}>{item.name}</div>
                 </div>)}
-            <div className="editor" ref={wrapperRef}/>
+            <div className="editor" ref={quillRef}/>
         </div>
     </div>
 }
