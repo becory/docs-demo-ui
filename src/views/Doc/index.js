@@ -252,7 +252,6 @@ const Index = () => {
                 <select className="ql-header">
                     <option selected />
                     <option value="1" />
-                    <!-- Note a missing, thus falsy value, is used to reset to default -->
                     <option value="2" />
                     <option value="4" />
                     <option value="5" />
@@ -263,11 +262,9 @@ const Index = () => {
                 <button className="ql-list" value="bullet" />
                 <button className="ql-color" />
                 <button className="ql-background" />
-                <!-- Add a bold button -->
                 <button className="ql-bold" />
                 <button className="ql-italic" />
                 <button className="ql-underline" />
-                <!-- Add subscript and superscript buttons -->
                 <button className="ql-script" value="sub" />
                 <button className="ql-script" value="super" />
                 <select className="ql-align" />
