@@ -46,7 +46,9 @@ const Index = () => {
     const { quill, quillRef, Quill } = useQuill({
         theme: "snow", modules: {toolbar: '#toolbar', cursors: true},
     });
-
+    if (Quill && !quill) {
+        Quill.register('modules/cursors', QuillCursors);
+    }
     const cursorRef = useRef()
 
     let login_user
@@ -62,7 +64,6 @@ const Index = () => {
 
     useEffect(()=>{
         if(quill){
-            Quill.register('modules/cursors', QuillCursors);
             quill.disable()
             quill.setText('Loading...')
         }
