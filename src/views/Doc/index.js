@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState, useRef} from "react";
 import {useParams, useHistory} from "react-router-dom";
 import Quill from "quill"
 import QuillCursors from 'quill-cursors';
@@ -44,6 +44,7 @@ const Index = () => {
     const [lastUpdated, setLastUpdated] = useState({updated: '', User: {name: ''}})
     const [errorVisible, setErrorVisible] = useState(false)
     const [errorMsg, setErrorMsg] = useState(null)
+    const cursorRef = useRef()
 
     let login_user
     if (session) {
@@ -248,8 +249,8 @@ const Index = () => {
             {userCursor.filter(item => item.id !== login_user.id).map((item) =>
                 <div className="cursor" style={
                     {
-                        top: item.cursor.y * (wrapperRef.current.getBoundingClientRect().height/item.cursor.elementHeight)  + 'px',
-                        left: item.cursor.x * (wrapperRef.current.getBoundingClientRect().width/item.cursor.elementWidth) + 'px'
+                        top: item.cursor.y * (cursorRef.current.getBoundingClientRect().height/item.cursor.elementHeight)  + 'px',
+                        left: item.cursor.x * (cursorRef.current.getBoundingClientRect().width/item.cursor.elementWidth) + 'px'
                     }
                 } key={item.id}>
                     <img src={cursorSVG} width="18" height="18" alt={item.user}/>
