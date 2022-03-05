@@ -1,9 +1,10 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState, useRef} from "react";
 import {useParams, useHistory} from "react-router-dom";
 import Quill from "quill"
 import QuillCursors from 'quill-cursors';
 import "quill/dist/quill.snow.css"
 import "./index.scss"
+import useMouse from '@react-hook/mouse-position'
 import {io} from "socket.io-client"
 import cursorSVG from '../../public/cursor.png'
 import {getDoc, getDocAuth, patchDoc} from "../../api/doc";
@@ -33,7 +34,6 @@ const Index = () => {
     const history = useHistory()
     const {session, save, clear} = useSession("docs-demo-token")
     const [doc, setDoc] = useState()
-    const [cursor, setCursor] = useState()
     const [users, setUsers] = useState([])
     const [userCursor, setUserCursor] = useState([])
     const [userSelection, setUserSelection] = useState([])
@@ -44,6 +44,7 @@ const Index = () => {
     const [lastUpdated, setLastUpdated] = useState({updated: '', User: {name: ''}})
     const [errorVisible, setErrorVisible] = useState(false)
     const [errorMsg, setErrorMsg] = useState(null)
+    const cursorRef = useRef()
 
     let login_user
     if (session) {
@@ -61,26 +62,6 @@ const Index = () => {
             setErrorVisible(true)
         }
     }, [errorMsg])
-
-    const detectCursor = (e) => {
-        if (e.pageX && e.pageY) {
-            setCursor({
-                x: e.pageX,
-                y: e.pageY,
-                width: window.innerWidth,
-                height: window.innerHeight
-            })
-        } else {
-            const scrollX = document.documentElement.scrollLeft || document.body.scrollLeft || 0;
-            const scrollY = document.documentElement.scrollTop || document.body.scrollTop || 0;
-            setCursor({
-                x: e.clientX + scrollX,
-                y: e.clientY + scrollY,
-                width: window.innerWidth,
-                height: window.innerHeight
-            })
-        }
-    }
 
     const getDocInfo = async () => {
         try {
@@ -177,10 +158,7 @@ const Index = () => {
         }
     }, [socket, quill])
 
-    useEffect(() => {
-        if (!socket || !cursor) return
-        socket.emit("send-cursor-changes", {cursor: cursor, time: new Date()})
-    }, [socket, cursor])
+
 
     useEffect(() => {
         if (!socket || !quill || !userSelection) return
@@ -248,6 +226,16 @@ const Index = () => {
         setQuill(q)
     }, [])
 
+    const mouse = useMouse(cursorRef, {
+        enterDelay: 100,
+        leaveDelay: 100,
+    })
+
+    useEffect(() => {
+        if (!socket || !mouse) return
+        socket.emit("send-cursor-changes", {cursor: mouse, time: new Date()})
+    }, [socket, mouse])
+
     return <div>
         <Error open={errorVisible} setOpen={setErrorVisible} error={errorMsg}/>
         <ShareModal modalVisible={modalVisible} setModalVisible={setModalVisible} doc={doc} setDoc={setDoc}
@@ -257,12 +245,12 @@ const Index = () => {
                 onChangeTitle={onChangeTitle}
                 quill={quill}
                 logout={logout}/>
-        <div className="wrapper">
+        <div className="wrapper" ref={cursorRef}>
             {userCursor.filter(item => item.id !== login_user.id).map((item) =>
                 <div className="cursor" style={
                     {
-                        top: item.cursor.y + 'px',
-                        left: item.cursor.x * (window.innerWidth / item.cursor.width) + 'px'
+                        top: item.cursor.y * (item.cursor.elementHeight/ cursorRef.current.getBoundingClientRect().height)  + 'px',
+                        left: item.cursor.x * (item.cursor.elementHeight/ cursorRef.current.getBoundingClientRect().weight) + 'px'
                     }
                 } key={item.id}>
                     <img src={cursorSVG} width="18" height="18" alt={item.user}/>
@@ -275,7 +263,7 @@ const Index = () => {
                         padding: '3px 5px'
                     }}>{item.name}</div>
                 </div>)}
-            <div className="editor" ref={wrapperRef} onMouseMove={detectCursor}/>
+            <div className="editor" ref={wrapperRef}/>
         </div>
     </div>
 }
