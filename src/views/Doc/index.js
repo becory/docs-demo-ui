@@ -43,7 +43,9 @@ const Index = () => {
     const [lastUpdated, setLastUpdated] = useState({updated: '', User: {name: ''}})
     const [errorVisible, setErrorVisible] = useState(false)
     const [errorMsg, setErrorMsg] = useState(null)
-    const { quill, quillRef, Quill } = useQuill();
+    const { quill, quillRef, Quill } = useQuill({
+        theme: "snow", modules: {toolbar: '#toolbar', cursors: true},
+    });
 
     const cursorRef = useRef()
 
@@ -244,8 +246,8 @@ const Index = () => {
             {userCursor.filter(item => item.id !== login_user.id).map((item) =>
                 <div className="cursor" style={
                     {
-                        top: item.cursor.y * (cursorRef.current.getBoundingClientRect().height/item.cursor.elementHeight)  + 'px',
-                        left: item.cursor.x * (cursorRef.current.getBoundingClientRect().width/item.cursor.elementWidth) + 'px'
+                        top: item.cursor.y * (quillRef.getBoundingClientRect().height/item.cursor.elementHeight)  + 'px',
+                        left: item.cursor.x * (quillRef.getBoundingClientRect().width/item.cursor.elementWidth) + 'px'
                     }
                 } key={item.id}>
                     <img src={cursorSVG} width="18" height="18" alt={item.user}/>
@@ -258,6 +260,7 @@ const Index = () => {
                         padding: '3px 5px'
                     }}>{item.name}</div>
                 </div>)}
+            <div id="toolbar" />
             <div className="editor" ref={quillRef}/>
         </div>
     </div>
