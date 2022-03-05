@@ -13,10 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Deploy with gh-pages
-      run: |
-        ls
-        git remote set-url origin https://github.com/${{github.repository}}.git
-        npm run deploy -u "github-actions-bot <support+actions@github.com>"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Checkout"
+        uses: actions/checkout@v2
+
+      - name: "Install Dependencies"
+        run: npm install
+        
+      - name: Deploy with gh-pages
+        run: |
+          git remote set-url origin https://git:${{ secrets.GITHUB_TOKEN }}@github.com/${{github.repository}}.git
+          npm run deploy -u "github-actions-bot <support+actions@github.com>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
