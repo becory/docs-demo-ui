@@ -249,8 +249,8 @@ const Index = () => {
             {userCursor.filter(item => item.id !== login_user.id).map((item) =>
                 <div className="cursor" style={
                     {
-                        top: item.cursor.y * (item.cursor.elementHeight/ cursorRef.current.getBoundingClientRect().height)  + 'px',
-                        left: item.cursor.x * (item.cursor.elementWidth/ cursorRef.current.getBoundingClientRect().width) + 'px'
+                        top: item.cursor.y * (cursorRef.current.getBoundingClientRect().height/item.cursor.elementHeight)  + 'px',
+                        left: item.cursor.x * (cursorRef.current.getBoundingClientRect().width/item.cursor.elementWidth) + 'px'
                     }
                 } key={item.id}>
                     <img src={cursorSVG} width="18" height="18" alt={item.user}/>
