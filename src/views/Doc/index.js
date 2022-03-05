@@ -226,7 +226,7 @@ const Index = () => {
         setQuill(q)
     }, [])
 
-    const mouse = useMouse(wrapperRef, {
+    const mouse = useMouse(cursorRef, {
         enterDelay: 100,
         leaveDelay: 100,
     })
