@@ -17,18 +17,6 @@ import Header from "./components/Header";
 import Error from "../../components/Error";
 import {baseURL} from "../../api";
 
-const TOOLBAR_OPTIONS = [
-    [{header: [1, 2, 3, 4, 5, 6, false]}],
-    [{font: []}],
-    [{list: "ordered"}, {list: "bullet"}],
-    ["bold", "italic", "underline"],
-    [{color: []}, {background: []}],
-    [{script: "sub"}, {script: "super"}],
-    [{align: []}],
-    ["image", "blockquote", "code-block"],
-    ["clean"],
-]
-
 const Index = () => {
     const {id: docId} = useParams()
     const history = useHistory()
@@ -43,7 +31,7 @@ const Index = () => {
     const [lastUpdated, setLastUpdated] = useState({updated: '', User: {name: ''}})
     const [errorVisible, setErrorVisible] = useState(false)
     const [errorMsg, setErrorMsg] = useState(null)
-    const { quill, quillRef, Quill } = useQuill({
+    const {quill, quillRef, Quill} = useQuill({
         theme: "snow", modules: {toolbar: '#toolbar', cursors: true},
     });
     if (Quill && !quill) {
@@ -62,8 +50,8 @@ const Index = () => {
         login_user = save({id: uuidV4(), name: 'Guest'})
     }
 
-    useEffect(()=>{
-        if(quill){
+    useEffect(() => {
+        if (quill) {
             quill.disable()
             quill.setText('Loading...')
         }
@@ -171,7 +159,6 @@ const Index = () => {
     }, [socket, quill])
 
 
-
     useEffect(() => {
         if (!socket || !quill || !userSelection) return
         const handler = (cursorList) => {
@@ -247,8 +234,8 @@ const Index = () => {
             {userCursor.filter(item => item.id !== login_user.id).map((item) =>
                 <div className="cursor" style={
                     {
-                        top: item.cursor.y * (quillRef.getBoundingClientRect().height/item.cursor.elementHeight)  + 'px',
-                        left: item.cursor.x * (quillRef.getBoundingClientRect().width/item.cursor.elementWidth) + 'px'
+                        top: item.cursor.y * (quillRef.current.getBoundingClientRect().height / item.cursor.elementHeight) + 'px',
+                        left: item.cursor.x * (quillRef.current.getBoundingClientRect().width / item.cursor.elementWidth) + 'px'
                     }
                 } key={item.id}>
                     <img src={cursorSVG} width="18" height="18" alt={item.user}/>
@@ -261,7 +248,33 @@ const Index = () => {
                         padding: '3px 5px'
                     }}>{item.name}</div>
                 </div>)}
-            <div id="toolbar" />
+            <div id="toolbar">
+                <select className="ql-header">
+                    <option selected />
+                    <option value="1" />
+                    <!-- Note a missing, thus falsy value, is used to reset to default -->
+                    <option value="2" />
+                    <option value="4" />
+                    <option value="5" />
+                    <option value="6" />
+                </select>
+                <select className="ql-font" />
+                <button className="ql-list" value="ordered" />
+                <button className="ql-list" value="bullet" />
+                <button className="ql-color" />
+                <button className="ql-background" />
+                <!-- Add a bold button -->
+                <button className="ql-bold" />
+                <button className="ql-italic" />
+                <button className="ql-underline" />
+                <!-- Add subscript and superscript buttons -->
+                <button className="ql-script" value="sub" />
+                <button className="ql-script" value="super" />
+                <select className="ql-align" />
+                <button className="ql-image" />
+                <button className="ql-blockquote" />
+                <button className="ql-clean" />
+            </div>
             <div className="editor" ref={quillRef}/>
         </div>
     </div>
