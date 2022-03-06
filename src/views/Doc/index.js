@@ -34,7 +34,7 @@ const Index = () => {
     const {quill, quillRef, Quill} = useQuill({
         theme: "snow", modules: {toolbar: '#toolbar', cursors: true},
     });
-    const cursorRef = useRef(null)
+    const cursorRef = useRef()
     if (Quill && !quill) {
         Quill.register('modules/cursors', QuillCursors);
     }
