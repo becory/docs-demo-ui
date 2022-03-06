@@ -35,6 +35,7 @@ const Index = () => {
         theme: "snow", modules: {toolbar: '#toolbar', cursors: true},
     });
     const cursorRef = useRef(null)
+    let mouse;
 
     if (Quill && !quill) {
         Quill.register('modules/cursors', QuillCursors);
@@ -56,6 +57,10 @@ const Index = () => {
             quill.disable()
             quill.setText('Loading...')
             cursorRef.current = quillRef.current.childNodes[0]
+            mouse = useMouse(cursorRef, {
+                enterDelay: 100,
+                leaveDelay: 100,
+            })
         }
         console.log('quill', quillRef)
         console.log('cursor', cursorRef, cursorRef.current)
@@ -214,14 +219,9 @@ const Index = () => {
         }
     }, [docId, history, session])
 
-
-    const mouse = useMouse(cursorRef, {
-        enterDelay: 100,
-        leaveDelay: 100,
-    })
-
     useEffect(() => {
         if (!socket || !mouse) return
+        console.log('mouse', mouse)
         socket.emit("send-cursor-changes", {cursor: mouse, time: new Date()})
     }, [socket, mouse])
 
