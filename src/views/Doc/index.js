@@ -34,20 +34,11 @@ const Index = () => {
     const {quill, quillRef, Quill} = useQuill({
         theme: "snow", modules: {toolbar: '#toolbar', cursors: true},
     });
-    const cursorRef = useRef()
+    // const cursorRef = useRef()
     if (Quill && !quill) {
         Quill.register('modules/cursors', QuillCursors);
     }
-    if (quillRef && quillRef.current){
-        cursorRef.current = quillRef.current.childNodes[0]
-        console.log('quill', quillRef)
-        console.log('cursor', cursorRef, cursorRef.current)
-    }
 
-    const mouse = useMouse(cursorRef, {
-        enterDelay: 100,
-        leaveDelay: 100,
-    })
     let login_user
     if (session) {
         try {
@@ -63,7 +54,6 @@ const Index = () => {
         if (quill) {
             quill.disable()
             quill.setText('Loading...')
-
         }
     }, [quill])
 
@@ -220,9 +210,14 @@ const Index = () => {
         }
     }, [docId, history, session])
 
+
+    const mouse = useMouse(quillRef, {
+        enterDelay: 100,
+        leaveDelay: 100,
+    })
+
     useEffect(() => {
         if (!socket || !mouse) return
-        console.log('mouse', mouse)
         socket.emit("send-cursor-changes", {cursor: mouse, time: new Date()})
     }, [socket, mouse])
 
@@ -263,8 +258,8 @@ const Index = () => {
             {userCursor.filter(item => item.id !== login_user.id).map((item) =>
                 <div className="cursor" style={
                     {
-                        top: item.cursor.y * (cursorRef.current.getBoundingClientRect().height / item.cursor.elementHeight) + 'px',
-                        left: item.cursor.x * (cursorRef.current.getBoundingClientRect().width / item.cursor.elementWidth) + 'px'
+                        top: item.cursor.y * (quillRef.current.getBoundingClientRect().height / item.cursor.elementHeight) + 'px',
+                        left: item.cursor.x * (quillRef.current.getBoundingClientRect().width / item.cursor.elementWidth) + 'px'
                     }
                 } key={item.id}>
                     <img src={cursorSVG} width="18" height="18" alt={item.user}/>
