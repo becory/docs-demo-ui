@@ -55,7 +55,7 @@ const Index = () => {
         if (quill) {
             quill.disable()
             quill.setText('Loading...')
-            cursorRef.current = quillRef.current.children[0]
+            cursorRef.current = quillRef.current.childNodes[0]
         }
         console.log('quill', quillRef)
         console.log('cursor', cursorRef, cursorRef.current)
