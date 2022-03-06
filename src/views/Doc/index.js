@@ -40,7 +40,15 @@ const Index = () => {
     if (Quill && !quill) {
         Quill.register('modules/cursors', QuillCursors);
     }
-
+    if (quillRef && quillRef.current){
+        cursorRef.current = quillRef.current.childNodes[0]
+        mouse = useMouse(cursorRef, {
+            enterDelay: 100,
+            leaveDelay: 100,
+        })
+        console.log('quill', quillRef)
+        console.log('cursor', cursorRef, cursorRef.current)
+    }
     let login_user
     if (session) {
         try {
@@ -56,14 +64,8 @@ const Index = () => {
         if (quill) {
             quill.disable()
             quill.setText('Loading...')
-            cursorRef.current = quillRef.current.childNodes[0]
-            mouse = useMouse(cursorRef, {
-                enterDelay: 100,
-                leaveDelay: 100,
-            })
+
         }
-        console.log('quill', quillRef)
-        console.log('cursor', cursorRef, cursorRef.current)
     }, [quill])
 
     useEffect(() => {
