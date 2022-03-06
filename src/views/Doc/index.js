@@ -34,6 +34,8 @@ const Index = () => {
     const {quill, quillRef, Quill} = useQuill({
         theme: "snow", modules: {toolbar: '#toolbar', cursors: true},
     });
+    const cursorRef = useRef(null)
+
     if (Quill && !quill) {
         Quill.register('modules/cursors', QuillCursors);
     }
@@ -53,7 +55,9 @@ const Index = () => {
         if (quill) {
             quill.disable()
             quill.setText('Loading...')
+            cursorRef.current = quillRef.current.children[0]
         }
+        console.log('quill', quillRef.current.children)
     }, [quill])
 
     useEffect(() => {
@@ -210,7 +214,7 @@ const Index = () => {
     }, [docId, history, session])
 
 
-    const mouse = useMouse(quillRef, {
+    const mouse = useMouse(cursorRef, {
         enterDelay: 100,
         leaveDelay: 100,
     })
@@ -257,8 +261,8 @@ const Index = () => {
             {userCursor.filter(item => item.id !== login_user.id).map((item) =>
                 <div className="cursor" style={
                     {
-                        top: item.cursor.y * (quillRef.current.getBoundingClientRect().height / item.cursor.elementHeight) + 'px',
-                        left: item.cursor.x * (quillRef.current.getBoundingClientRect().width / item.cursor.elementWidth) + 'px'
+                        top: item.cursor.y * (cursorRef.current.getBoundingClientRect().height / item.cursor.elementHeight) + 'px',
+                        left: item.cursor.x * (cursorRef.current.getBoundingClientRect().width / item.cursor.elementWidth) + 'px'
                     }
                 } key={item.id}>
                     <img src={cursorSVG} width="18" height="18" alt={item.user}/>
