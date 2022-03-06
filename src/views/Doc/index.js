@@ -58,6 +58,7 @@ const Index = () => {
             cursorRef.current = quillRef.current.children[0]
         }
         console.log('quill', quillRef.current.children)
+        console.log('cursor', cursorRef, cursorRef.current)
     }, [quill])
 
     useEffect(() => {
